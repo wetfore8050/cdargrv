@@ -19,6 +19,21 @@ filtered_df["logE"] = 1.5 * filtered_df["マグニチュード"] + 11.8
 filtered_df["E"] = 10 ** filtered_df["logE"]
 filtered_df["累積E"] = filtered_df["E"].cumsum()
 filtered_df["累積N"] = np.arange(1, len(filtered_df) + 1)
+
+print(filtered_df)
+
+#適当な情報を追加
+last_row = filtered_df.iloc[-1]
+next_time = last_row["日時"] + pd.Timedelta(minutes=1)
+
+extension = pd.DataFrame({
+    "日時": [next_time],
+    "累積E": [last_row["累積E"]],
+    "累積N": [last_row["累積N"]]
+})
+
+filtered_df = pd.concat([filtered_df, extension], ignore_index=True)
+print(filtered_df)
 """
 fig, ax1 = plt.subplots(figsize=(10, 6))
 
