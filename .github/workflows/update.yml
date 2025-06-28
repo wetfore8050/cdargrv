@@ -26,7 +26,7 @@ jobs:
       - name: Chrome + xvfb + グラフ実行
         run: |
           sudo apt-get update
-          sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4
+          sudo apt-get install -y unzip xvfb libxi6
           xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 EarthquakeData.py
           xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 ET_plotly.py
 
