@@ -18,6 +18,7 @@ def run_code2():
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-gpu')  # GPU関連エラー対策（Linuxで安定）
+    options.add_argument('--window-size=1920,1080')  # ← 追加！
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
     url = "https://www.jma.go.jp/bosai/map.html#11/29.375/129.5/&elem=int&contents=earthquake_map"
