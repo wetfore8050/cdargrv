@@ -1,0 +1,39 @@
+name: Update Earthquake Data & Plot
+
+on:
+  schedule:
+    - cron: "0 */2 * * *"  # 2時間ごと（UTC）
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: チェックアウト
+        uses: actions/checkout@v3
+
+      - name: Python設定
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10
+
+      - name: パッケージインストール
+        run: |
+          pip install selenium pandas plotly numpy japanize_matplotlib
+          pip install matplotlib webdriver-manager
+
+      - name: Chrome + xvfb + グラフ実行
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 EarthquakeData.py
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 ET_plotly.py
+
+      - name: コミット＆Push
+        run: |
+          git config user.name github-actions
+          git config user.email actions@github.com
+          git add EarthquakeData.csv et_graph.html
+          git commit -m "🌀 自動更新: 地震データとグラフ" || echo "No changes"
+          git push
