@@ -26,6 +26,7 @@ START_TIME = "00:00"
 #END_TIME = "23:59"
 
 now = datetime.now()
+print(f"now: {now}")
 
 END_DATE = now.strftime("%Y-%m-%d")
 END_TIME = now.strftime("%H:%M")
