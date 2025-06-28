@@ -34,6 +34,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email actions@github.com
-          git add EarthquakeData.csv et_graph.html
+          git add EarthquakeData.csv plot/et_graph.html
           git commit -m "🌀 自動更新: 地震データとグラフ" || echo "No changes"
           git push
