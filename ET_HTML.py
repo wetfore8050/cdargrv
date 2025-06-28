@@ -5,7 +5,7 @@ import numpy as np
 import japanize_matplotlib
 import plotly.graph_objects as go
 
-df = pd.read_csv("EarthquakeData.csv", skiprows=2, header=None, names=["日時", "震央地名", "深さ", "マグニチュード", "震度"])
+df = pd.read_csv("EarthquakeData.csv", skiprows=1, header=None, names=["日時", "震央地名", "深さ", "マグニチュード", "震度"])
 
 filtered_df = df[df["震央地名"] == "トカラ列島近海"].copy()
 
@@ -20,20 +20,7 @@ filtered_df["E"] = 10 ** filtered_df["logE"]
 filtered_df["累積E"] = filtered_df["E"].cumsum()
 filtered_df["累積N"] = np.arange(1, len(filtered_df) + 1)
 
-print(filtered_df)
 
-#適当な情報を追加
-last_row = filtered_df.iloc[-1]
-next_time = last_row["日時"] + pd.Timedelta(minutes=1)
-
-extension = pd.DataFrame({
-    "日時": [next_time],
-    "累積E": [last_row["累積E"]],
-    "累積N": [last_row["累積N"]]
-})
-
-filtered_df = pd.concat([filtered_df, extension], ignore_index=True)
-print(filtered_df)
 """
 fig, ax1 = plt.subplots(figsize=(10, 6))
 
