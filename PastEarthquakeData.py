@@ -45,6 +45,7 @@ def run_code1(start_date, start_time, end_date, end_time):
     file_counter = 1
 
     def set_search_conditions(s_date, s_time, e_date, e_time):
+        print(s_date, s_time, e_date, e_time)
         #条件を指定して検索をクリック
         wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[1]/div/div/header/div/div[3]/button[4]"))).click() #タプルで渡すので括弧が2つ
         time.sleep(1)
@@ -52,7 +53,8 @@ def run_code1(start_date, start_time, end_date, end_time):
         start_input = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[2]/div[2]/div/div/div/div[3]/input")))
         end_input = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[3]/div[2]/div/div/div/div[3]/input")
         start_input.clear()
-        end_input.clear
+        end_input.clear()
+        time.sleep(0.5)
         start_input.send_keys(s_date)
         end_input.send_keys(e_date)
         time.sleep(0.5)
@@ -61,11 +63,24 @@ def run_code1(start_date, start_time, end_date, end_time):
         end_time_input = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[3]/div[3]/div/div/div/div[3]/input")
         start_time_input.clear()
         end_time_input.clear()
+        time.sleep(0.5)
         start_time_input.send_keys(s_time)
         end_time_input.send_keys(e_time)
         time.sleep(0.5)
 
+        # 検証: 実際にフォームに入力された値をログ出力
+        print("[Form filled]")
+        print("start_date (input):", start_input.get_attribute("value"))
+        print("end_date (input):  ", end_input.get_attribute("value"))
+        print("start_time (input):", start_time_input.get_attribute("value"))
+        print("end_time (input):  ", end_time_input.get_attribute("value"))
+
+
     def run_search_and_download():
+        print(f"[Search and Download] Using conditions:")
+        print(f"start: {start_date} {start_time} → end: {current_end_date} {current_end_time}")
+
+
         nonlocal file_counter
 
         before_files = set(os.listdir(DOWNLOAD_DIR))
