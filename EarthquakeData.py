@@ -51,6 +51,8 @@ else:
 
     mid_date = one_minute_before_mid.strftime("%Y-%m-%d")
     mid_time = one_minute_before_mid.strftime("%H:%M")
+    print(f"開始日時: {START_DATE} {START_TIME}")
+    print(f"終了日時: {mid_date} {mid_time}")
     run_code1(START_DATE, START_TIME, mid_date, mid_time)
     run_code2()
 
