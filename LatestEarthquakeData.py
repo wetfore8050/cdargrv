@@ -27,15 +27,22 @@ def run_code2():
 
     try:
         quake_tab = WebDriverWait(driver, 20).until(
-            EC.element_to_be_clickable((By.XPATH, "/html/body/div[9]/ul/li[2]"))
+            EC.presence_of_element_located((By.ID, "unitmap-textinfobutton"))
         )
+        print("quake_tab found:", quake_tab.is_displayed(), quake_tab.is_enabled())
+
+        quake_tab = WebDriverWait(driver, 20).until(
+            EC.element_to_be_clickable((By.ID, "unitmap-textinfobutton"))
+        )
+        print("quake_tab clickable")
+
         quake_tab.click()
 
         #table = driver.find_element(By.XPATH, "/html/body/div[9]/div/div[3]/div/table")
         table = WebDriverWait(driver, 10).until(
             EC.presence_of_element_located((By.XPATH, "/html/body/div[9]/div/div[3]/div/table"))
         )
-        
+        print(table)
         rows = table.find_elements(By.TAG_NAME, "tr")
 
         data = []
