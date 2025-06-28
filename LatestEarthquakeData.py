@@ -9,11 +9,12 @@ import pandas as pd
 import time
 import datetime
 import os
+import traceback
 
 
 def run_code2():
     options = webdriver.ChromeOptions()
-    options.add_argument('--headless')  # Headless Chrome用
+    options.add_argument('--headless=new')  # Headless Chrome用
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
     options.add_argument('--disable-gpu')  # GPU関連エラー対策（Linuxで安定）
@@ -25,7 +26,7 @@ def run_code2():
     time.sleep(5)
 
     try:
-        quake_tab = WebDriverWait(driver, 10).until(
+        quake_tab = WebDriverWait(driver, 20).until(
             EC.element_to_be_clickable((By.XPATH, "/html/body/div[9]/ul/li[2]"))
         )
         quake_tab.click()
@@ -57,6 +58,6 @@ def run_code2():
 
     except Exception as e:
         print("データ取得に失敗:", e)
-
+        traceback.print_exc()
     finally:
         driver.quit()
