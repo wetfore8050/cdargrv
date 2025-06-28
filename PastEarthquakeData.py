@@ -52,21 +52,32 @@ def run_code1(start_date, start_time, end_date, end_time):
 
         start_input = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[2]/div[2]/div/div/div/div[3]/input")))
         end_input = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[3]/div[2]/div/div/div/div[3]/input")
+        
+        driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input'));", start_input, s_date)
+        driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input'));", end_input, e_date)
+        """
         start_input.clear()
         end_input.clear()
         time.sleep(0.5)
         start_input.send_keys(s_date)
         end_input.send_keys(e_date)
         time.sleep(0.5)
+        """
 
         start_time_input = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[2]/div[3]/div/div/div/div[3]/input")
         end_time_input = driver.find_element(By.XPATH, "/html/body/div[1]/div/div/nav[1]/div/div/div[3]/div[3]/div[3]/div/div/div/div[3]/input")
+        
+        driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input'));", start_time_input, s_time)
+        driver.execute_script("arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('input'));", end_time_input, e_time)
+
+        """
         start_time_input.clear()
         end_time_input.clear()
         time.sleep(0.5)
         start_time_input.send_keys(s_time)
         end_time_input.send_keys(e_time)
         time.sleep(0.5)
+        """
 
         # 検証: 実際にフォームに入力された値をログ出力
         print("[Form filled]")
