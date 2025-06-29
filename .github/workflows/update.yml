@@ -2,7 +2,7 @@ name: Update Earthquake Data & Plot
 
 on:
   schedule:
-    - cron: "0 */2 * * *"  # 2時間ごと（UTC）
+    - cron: "*/30 * * * *"  # 2時間ごと（UTC）
   workflow_dispatch:
 
 jobs:
