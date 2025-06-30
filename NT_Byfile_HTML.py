@@ -1,9 +1,7 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 import plotly.graph_objects as go
 import glob
 import os
-from datetime import datetime
 
 csv_file = sorted(glob.glob("*.csv"))
 

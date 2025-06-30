@@ -1,7 +1,5 @@
 import pandas as pd
-import matplotlib.pyplot as plt
 from datetime import datetime
-import japanize_matplotlib
 import plotly.graph_objects as go
 
 df = pd.read_csv("EarthquakeData.csv", skiprows=1, header=None, names=["日時", "震央地名", "深さ", "マグニチュード", "震度"])

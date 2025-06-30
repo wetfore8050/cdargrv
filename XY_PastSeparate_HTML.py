@@ -1,16 +1,9 @@
 import pandas as pd
 import plotly.graph_objects as go
 import plotly.subplots as sp
-import matplotlib.pyplot as plt
-import cartopy.crs as ccrs
-import cartopy.feature as cfeature
 import os
 import glob #ファイルパターン
 import re #正規表現
-import japanize_matplotlib
-import matplotlib.gridspec as gridspec
-import seaborn as sns
-import numpy as np
 
 def dms_to_deg(dms_str):
     match = re.match(r"(\d+)°(\d+(?:\.\d+)?)′([NSWE])", dms_str)
