@@ -29,6 +29,10 @@ jobs:
           sudo apt-get install -y unzip xvfb libxi6
           xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 EarthquakeData.py
           xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 ET_HTML.py
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 MT_HTML.py
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 NT_Byfile_HTML.py
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 XY_HTML.py
+          xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 XY_PastSeparate_HTML.py
 
       - name: 実行時間ファイルの作成
         run: |
@@ -38,6 +42,6 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email actions@github.com
-          git add EarthquakeData.csv plot/et_graph.html
+          git add EarthquakeData.csv plot/et_graph.html plot/last_run.txt
           git commit -m "🌀 自動更新: 地震データとグラフ" || echo "No changes"
           git push
