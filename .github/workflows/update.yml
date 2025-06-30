@@ -2,7 +2,7 @@ name: Update Earthquake Data & Plot
 
 on:
   schedule:
-    - cron: "*/30 * * * *"  # 2時間ごと（UTC）
+    - cron: "0 * * * *"  # 2時間ごと（UTC）
   workflow_dispatch:
 
 jobs:
@@ -30,6 +30,10 @@ jobs:
           xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 EarthquakeData.py
           xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' python3 ET_HTML.py
 
+      - name: 実行時間ファイルの作成
+        run: |
+          mkdir -p plot
+          echo "最終更新: $(TZ=Asia/Tokyo date '+%Y/%m/%d %H:%M:%S')" > plot/last_run.txt
       - name: コミット＆Push
         run: |
           git config user.name github-actions

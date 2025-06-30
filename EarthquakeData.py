@@ -56,6 +56,19 @@ else:
     run_code1(START_DATE, START_TIME, mid_date, mid_time)
     run_code2()
 
+#202506.csvの作成
+original_csvs = [
+    os.path.join("downloads_csv", f)
+    for f in os.listdir("downloads_csv")
+    if f.endswith(".csv") and f != "earthquake_0.csv"
+]
+
+if original_csvs:
+    original_dfs = [pd.read_csv(f) for f in original_csvs]
+    merged_original = pd.concat(original_dfs, ignore_index=True)
+    merged_original.to_csv("202506.csv", index=False, encoding='utf-8-sig')
+    print("202506.csv 完成")
+    
 def convert_to_decimal(coord_str):
     if not isinstance(coord_str, str):
         print(f"非文字列: {coord_str}")
@@ -131,10 +144,10 @@ def make_combined_csv():
 
     if all_data:
         pd.concat(all_data, ignore_index=True).to_csv("EarthquakeData.csv", index=False, encoding='utf-8-sig') #ただインデックス降りなおすためのconcat
-        print("EarthquakeData.csv完成")
+        print("EarthquakeData.csv 完成")
     
     if latlon_data:
         pd.concat(latlon_data, ignore_index=True).to_csv("EarthquakeData_latlon.csv", index=False, encoding='utf-8-sig')
-        print("EarthquakeData_latlon.csv完成")
+        print("EarthquakeData_latlon.csv 完成")
 
 make_combined_csv()

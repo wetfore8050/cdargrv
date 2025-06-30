@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>地震グラフビューア</title>
+    <title>トカラ列島地震統計グラフ</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tailwind CSSを読み込みます -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -21,7 +21,7 @@
 <body class="bg-gray-100">
 
     <header class="bg-blue-800 text-white p-4 shadow-md">
-        <h1 class="text-2xl font-bold text-center">地震グラフビューア</h1>
+        <h1 class="text-2xl font-bold text-center">トカラ列島地震統計グラフ</h1>
     </header>
 
     <main class="p-4 md:p-6 lg:p-8">
@@ -37,6 +37,12 @@
                 <button onclick="changeTab('xy')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
                     XYグラフ
                 </button>
+                <button onclick="changeTab('nt')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
+                    NTグラフ
+                </button>
+                <button onclick="changeTab('xy_sepa')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
+                    過去のXYグラフ
+                </button>
             </nav>
         </div>
 
@@ -48,16 +54,32 @@
             <iframe id="mt-graph" src="plot/mt_graph.html" title="MTグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
             <!-- XYグラフ (初期状態では非表示) -->
             <iframe id="xy-graph" src="plot/xy_graph.html" title="XYグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
+            <iframe id="nt-graph" src="plot/nt_byfile_graph.html" title="NTグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
+            <iframe id="xy_sepa-graph" src="plot/xy_pastsepa_graph.html" title="過去のXYグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
         </div>
 
         <div class="text-center mt-4 text-gray-600 text-sm">
             データ出典：気象庁「地震情報」「震度データベース検索」
         </div>
+    
+        <!-- 最終更新日時の表示 -->
+        <div class="text-center mt-2 text-gray-500 text-xs" id="last-updated">最終更新: 読み込み中...</div>
+
+        <script>
+            // last_run.txt を読み込んで表示
+            fetch('plot/last_run.txt')
+                .then(response => response.text())
+                .then(text => {
+                    document.getElementById('last-updated').textContent = text;
+                })
+                .catch(() => {
+                    document.getElementById('last-updated').textContent = "最終更新: 読み込み失敗";
+                });
+        </script>
+
     </main>
 
-    <footer class="text-center text-xs text-gray-500 p-4">
-        &copy; 2024 地震グラフビューア
-    </footer>
+
 
     <script>
         // タブ切り替えのためのJavaScript
@@ -66,7 +88,9 @@
             document.getElementById('et-graph').classList.add('hidden');
             document.getElementById('mt-graph').classList.add('hidden');
             document.getElementById('xy-graph').classList.add('hidden');
-
+            document.getElementById('nt-graph').classList.add('hidden');
+            document.getElementById('xy_sepa-graph').classList.add('hidden');
+            
             // すべてのタブボタンからactiveクラスを削除する
             const buttons = document.querySelectorAll('.tab-button');
             buttons.forEach(button => button.classList.remove('active'));
