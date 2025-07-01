@@ -52,7 +52,19 @@ fig.update_layout(
     title="M-T図",
     xaxis_title='日時',
     yaxis_title='マグニチュード',
-    template="plotly_white"
+    template="plotly_white",
+    
+    legend=dict(
+        orientation='v',
+        x=0.95, # 凡例の右端がグラフ領域の95%の位置になるように調整
+        xanchor="right",
+        y=1,
+        yanchor="top",
+        # itemwidth=70, # この行を削除
+        itemsizing='constant'
+    ),
+    margin=dict(t=60, b=60, l=60, r=60), # 必要に応じてr（右マージン）を増やすことも検討
+    legend_font=dict(size=14)
 )
 
 fig.write_html("plot/mt_graph.html", include_plotlyjs="cdn")

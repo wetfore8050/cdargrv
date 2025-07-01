@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    
     <meta charset="UTF-8">
     <title>トカラ列島地震統計グラフ</title>
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Tailwind CSSを読み込みます -->
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* カスタムスタイル */
         body {
-            font-family: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+            font-family: "Inter", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
         }
+        /* アクティブなタブボタンのスタイルを緑色に設定 */
         .tab-button.active {
-            border-bottom-color: #3b82f6; /* blue-500 */
-            color: #3b82f6;
-            font-weight: 600;
+            border-bottom-color: #10B981; /* emerald-500 */
+            color: #059669; /* emerald-600 */
+            font-weight: 700; /* より強調 */
+        }
+        /* ホバー時のタブボタンのスタイル */
+        .tab-button:hover {
+            color: #065F46; /* emerald-800 */
+            border-color: #065F46; /* emerald-800 */
         }
     </style>
 
@@ -30,52 +34,83 @@
     gtag('config', 'G-T0YG5YK23M');
     </script>
 </head>
-<body class="bg-gray-100">
+<body class="bg-emerald-50 text-gray-900 min-h-screen flex flex-col">
 
-    <header class="bg-blue-800 text-white p-4 shadow-md">
-        <h1 class="text-2xl font-bold text-center">トカラ列島地震統計グラフ</h1>
+    <header class="bg-emerald-700 text-white p-6 shadow-xl rounded-b-lg">
+        <h1 class="text-3xl font-extrabold text-center tracking-wide">トカラ列島地震統計グラフ</h1>
     </header>
 
-    <main class="p-4 md:p-6 lg:p-8">
+    <main class="p-4 md:p-8 lg:p-12 flex-grow flex flex-col items-center">
+        <!-- ページ全体の概要説明と基本情報 -->
+        <div class="w-full max-w-6xl mb-6 text-lg text-emerald-900 bg-emerald-100 p-4 rounded-lg shadow-md">
+            このページでは6月21日から「トカラ列島」で発生している一連の地震活動をグラフにプロットしたものです。
+            <br><br>
+            <ul class="text-base list-disc list-inside space-y-2 pl-4"> <!-- ここでリストに変更し、インデントと行間を調整 -->
+                <li>このページはおよそ1時間間隔更新です。最終更新時間はページ最下部に記載の通りです。</li>
+                <li>「ETグラフ」と「MTグラフ」はページ更新時のリアルタイムのデータを掲載していますが、「XYグラフ」と「NTグラフ」と「過去のXYグラフ」は<strong class="text-red-700">5日前の0時0分</strong>までのデータを集計して処理しています。（今後、2日前程度に更新していく見通し）</li>
+            </ul>
+        </div>
+
         <!-- タブナビゲーション -->
-        <div class="mb-4 border-b border-gray-300">
-            <nav class="flex -mb-px space-x-4" aria-label="Tabs">
-                <button onclick="changeTab('et')" class="tab-button active whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm transition-colors duration-200">
+        <div class="w-full max-w-6xl mb-6 bg-white rounded-xl shadow-md p-4">
+            <nav class="flex flex-wrap justify-center gap-4 border-b-2 border-emerald-200 pb-2" aria-label="Tabs">
+                <button onclick="changeTab('et')" class="tab-button active flex-1 text-center whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-base text-gray-600 transition-all duration-300 rounded-t-lg hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400">
                     ETグラフ
                 </button>
-                <button onclick="changeTab('mt')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
+                <button onclick="changeTab('mt')" class="tab-button flex-1 text-center whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-base text-gray-600 transition-all duration-300 rounded-t-lg hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400">
                     MTグラフ
                 </button>
-                <button onclick="changeTab('xy')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
+                <button onclick="changeTab('xy')" class="tab-button flex-1 text-center whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-base text-gray-600 transition-all duration-300 rounded-t-lg hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400">
                     XYグラフ
                 </button>
-                <button onclick="changeTab('nt')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
+                <button onclick="changeTab('nt')" class="tab-button flex-1 text-center whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-base text-gray-600 transition-all duration-300 rounded-t-lg hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400">
                     NTグラフ
                 </button>
-                <button onclick="changeTab('xy_sepa')" class="tab-button whitespace-nowrap py-3 px-4 border-b-2 font-medium text-sm text-gray-500 hover:text-gray-700 hover:border-gray-400 transition-colors duration-200">
+                <button onclick="changeTab('xy_sepa')" class="tab-button flex-1 text-center whitespace-nowrap py-3 px-4 border-b-2 border-transparent font-medium text-base text-gray-600 transition-all duration-300 rounded-t-lg hover:bg-emerald-50 hover:text-emerald-700 hover:border-emerald-400">
                     過去のXYグラフ
                 </button>
             </nav>
         </div>
 
-        <!-- グラフ表示エリア -->
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-            <!-- ETグラフ -->
-            <iframe id="et-graph" src="plot/et_graph.html" title="ETグラフ" class="w-full h-[85vh] border-none"></iframe>
-            <!-- MTグラフ (初期状態では非表示) -->
-            <iframe id="mt-graph" src="plot/mt_graph.html" title="MTグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
-            <!-- XYグラフ (初期状態では非表示) -->
-            <iframe id="xy-graph" src="plot/xy_graph.html" title="XYグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
-            <iframe id="nt-graph" src="plot/nt_byfile_graph.html" title="NTグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
-            <iframe id="xy_sepa-graph" src="plot/xy_pastsepa_graph.html" title="過去のXYグラフ" class="w-full h-[85vh] border-none hidden"></iframe>
+        <!-- 各グラフの説明文表示エリア -->
+        <div id="graph-description" class="w-full max-w-6xl mb-4 text-left text-base text-emerald-800 bg-emerald-50 p-3 rounded-lg shadow-inner border border-emerald-200 leading-relaxed">
+            <!-- JavaScriptによって内容が動的に更新されます -->
         </div>
 
-        <div class="text-center mt-4 text-gray-600 text-sm">
+        <!-- グラフ表示エリア -->
+        <div class="w-full max-w-6xl bg-white rounded-xl shadow-2xl overflow-hidden border border-emerald-200">
+            <!-- ETグラフ -->
+            <iframe id="et-graph" src="plot/et_graph.html" title="ETグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none"></iframe>
+            <!-- MTグラフ (初期状態では非表示) -->
+            <iframe id="mt-graph" src="plot/mt_graph.html" title="MTグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none hidden"></iframe>
+            <!-- XYグラフ (初期状態では非表示) -->
+            <iframe id="xy-graph" src="plot/xy_graph.html" title="XYグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none hidden"></iframe>
+            <iframe id="nt-graph" src="plot/nt_byfile_graph.html" title="NTグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none hidden"></iframe>
+            <iframe id="xy_sepa-graph" src="plot/xy_pastsepa_graph.html" title="過去のXYグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none hidden"></iframe>
+        </div>
+
+        <div class="text-center mt-6 text-emerald-800 text-base font-semibold">
             データ出典：気象庁「地震情報」「震度データベース検索」
         </div>
-    
+        
+        <!-- 気象庁の地震情報へのリンクを強調 -->
+        <div class="w-full max-w-xs mx-auto mt-4 mb-2">
+            <a href="https://www.jma.go.jp/bosai/map.html#contents=earthquake_map" target="_blank" rel="noopener noreferrer" 
+                class="block bg-emerald-600 text-white text-lg font-bold py-3 px-6 rounded-lg shadow-lg 
+                            hover:bg-emerald-700 transition-all duration-300 transform hover:scale-105 text-center">
+                [外部]気象庁の地震情報はこちら
+            </a>
+        </div>
+
+        <!-- 追加コンテンツ：免責事項など -->
+        <div class="w-full max-w-6xl mt-4 mb-6 text-sm text-gray-700 bg-gray-100 p-3 rounded-lg shadow-inner">
+            <p class="font-bold text-red-700">【ご注意】</p>
+            <p>このページに掲載されているグラフは、過去の地震活動を統計的に分析したものであり、将来の地震発生を予測するものではありません。防災に関する情報は、気象庁など公的機関からの発表をご確認ください。</p>
+        </div>
+
+
         <!-- 最終更新日時の表示 -->
-        <div class="text-center mt-2 text-gray-500 text-xs" id="last-updated">最終更新: 読み込み中...</div>
+        <div class="text-center mt-3 text-emerald-600 text-sm" id="last-updated">最終更新: 読み込み中...</div>
 
         <script>
             // last_run.txt を読み込んで表示
@@ -91,9 +126,36 @@
 
     </main>
 
-
-
     <script>
+        // 各グラフに対応する説明文のマップ
+        const graphDescriptions = {
+            'et': `ETグラフでは、黒線で累積エネルギー、赤線で累積地震回数を示しています。いずれも横軸は日時です。`,
+            'mt': `MTグラフは、縦軸にマグニチュード、横軸に日時をとっています。どの規模の地震がいつ起きたのかわかります。`,
+            'xy': `XYグラフは、緯度経度を軸に取った分布図です。また、緯度、経度それぞれにたいして、深さ方向をとった断面図も合わせて表示しています。
+                    ただし、凡例が切れているため、以下の通り凡例を表示します。（改善には時間を要する）
+                    <br><br>
+                    【凡例】（上から）<br>
+                    <span class="text-blue-600 font-bold">2000年10月</span><br>
+                    <span class="text-red-600 font-bold">2016年12月</span><br>
+                    <span class="text-teal-600 font-bold">2021年4月</span><br>
+                    <span class="text-purple-600 font-bold">2021年12月</span><br>
+                    <span class="text-orange-600 font-bold">2023年5月</span><br>
+                    <span class="text-cyan-600 font-bold">2023年9月</span><br>
+                    <span class="text-pink-600 font-bold">2025年6月【現在】</span>`,
+            'nt': `NTグラフは、縦軸に地震回数、横軸に日時をとっています。また、地震の活動時期ごとに最初の時間を0分として、経過時間がプロットされており、比較できます。
+                    ただし、凡例が切れているため、以下の通り凡例を表示します。（改善には時間を要する）
+                    <br><br>
+                    【凡例】（上から）<br>
+                    <span class="text-blue-600 font-bold">2000年10月</span><br>
+                    <span class="text-red-600 font-bold">2016年12月</span><br>
+                    <span class="text-teal-600 font-bold">2021年4月</span><br>
+                    <span class="text-purple-600 font-bold">2021年12月</span><br>
+                    <span class="text-orange-600 font-bold">2023年5月</span><br>
+                    <span class="text-cyan-600 font-bold">2023年9月</span><br>
+                    <span class="text-pink-600 font-bold">2025年6月【現在】</span>`,
+            'xy_sepa': `過去のXYグラフは、重なって見づらいXYグラフについて、年月別に活動期の地震をプロットしたものです。2023年5月については、地震がプロット対象範囲で地震が起きてないため地震のプロットはありません。`
+        };
+
         // タブ切り替えのためのJavaScript
         function changeTab(tabName) {
             // すべてのiframeを非表示にする
@@ -105,14 +167,30 @@
             
             // すべてのタブボタンからactiveクラスを削除する
             const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
+            buttons.forEach(button => {
+                button.classList.remove('active');
+                // アクティブでないタブのホバー効果を維持するために、特定のクラスを削除しない
+                button.classList.remove('text-emerald-700', 'border-emerald-400');
+            });
 
             // クリックされたタブに対応するiframeを表示する
             document.getElementById(tabName + '-graph').classList.remove('hidden');
 
             // クリックされたボタンにactiveクラスを追加する
-            event.currentTarget.classList.add('active');
+            // event.currentTarget の代わりに、tabName に基づいてボタンを特定
+            const targetButton = document.querySelector(`button[onclick="changeTab('${tabName}')"]`);
+            if (targetButton) {
+                targetButton.classList.add('active');
+            }
+
+            // グラフの説明を更新する
+            document.getElementById('graph-description').innerHTML = graphDescriptions[tabName];
         }
+
+        // ページ読み込み時に初期タブの説明を表示
+        document.addEventListener('DOMContentLoaded', () => {
+            changeTab('et'); // デフォルトでETグラフのタブと説明を表示
+        });
     </script>
 
 </body>

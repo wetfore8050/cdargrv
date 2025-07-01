@@ -114,7 +114,20 @@ fig.update_layout(
     height=800,
     width=1000,
     legend_title="年月",
-    template="plotly_white"
+    template="plotly_white",
+
+    legend=dict(
+        orientation='v',
+        x=1,
+        xanchor="left",
+        y=1,
+        yanchor="top",
+        itemwidth=100,
+        itemsizing='constant'
+    
+    ),
+    #margin=dict(t=60, b=60, l=60, r=60),
+    legend_font=dict(size=14)
 
 )
 
