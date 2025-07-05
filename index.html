@@ -119,6 +119,44 @@
                     <iframe id="xy_sepa-graph" src="plot/xy_pastsepa_graph.html" title="過去のXYグラフ" class="w-full h-[90vh] md:h-[95vh] lg:h-[100vh] border-none"></iframe>
                 </div>
             </div>
+
+            <!-- XTグラフセクション -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-emerald-800 mb-4 text-center py-2 px-4 bg-emerald-200 rounded-lg shadow-md">XTグラフ</h2>
+                <div class="w-full text-left text-base text-emerald-800 bg-emerald-50 p-3 rounded-lg shadow-inner border border-emerald-200 leading-relaxed mb-4">
+                    XTグラフは、横軸に日時、縦軸に地震の発生緯度をプロットしたものです。
+                    震源の時間による移動などをグラフから読み取ることが可能です。
+                </div>
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-emerald-200">
+                    <iframe id="xt-graph" src="plot/xt_graph.html" title="XTグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none"></iframe>
+                </div>
+            </div>
+
+            <!-- YTグラフセクション -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-emerald-800 mb-4 text-center py-2 px-4 bg-emerald-200 rounded-lg shadow-md">YTグラフ</h2>
+                <div class="w-full text-left text-base text-emerald-800 bg-emerald-50 p-3 rounded-lg shadow-inner border border-emerald-200 leading-relaxed mb-4">
+                    YTグラフは、横軸に日時、縦軸に地震の発生経度をプロットしたものです。
+                    震源の時間による移動などをグラフから読み取ることが可能です。
+                </div>
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-emerald-200">
+                    <iframe id="yt-graph" src="plot/yt_graph.html" title="YTグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none"></iframe>
+                </div>
+            </div>     
+
+            <!-- DTグラフセクション -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-emerald-800 mb-4 text-center py-2 px-4 bg-emerald-200 rounded-lg shadow-md">DTグラフ</h2>
+                <div class="w-full text-left text-base text-emerald-800 bg-emerald-50 p-3 rounded-lg shadow-inner border border-emerald-200 leading-relaxed mb-4">
+                    DTグラフは、横軸に日時、縦軸に地震の発生位置（深さ）の箱ひげ図をプロットしたものです。
+                    外れ値は丸で表示されています。なお、灰色で1日の有感地震回数も棒グラフで表示しています。
+                    震源の深さの大まかな時間変化をみることができますが、今回の地震活動は2か所以上の活動領域がみられるため、深さの変化については検証が必要です。
+                </div>
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-emerald-200">
+                    <iframe id="dt-graph" src="plot/dt_graph.html" title="DTグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none"></iframe>
+                </div>
+            </div>    
+
         </div>
 
         <div class="text-center mt-6 text-emerald-800 text-base font-semibold">
