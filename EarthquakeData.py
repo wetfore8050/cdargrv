@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from LatestEarthquakeData import run_code2
 from PastEarthquakeData import run_code1
 import pandas as pd
@@ -19,7 +19,7 @@ if os.path.exists(downloads_dir):
         except Exception as e:
             print("削除不可")
 
-START_DATE = "2024-07-20"
+START_DATE = "2025-06-01"
 START_TIME = "00:00"
 
 #END_DATE = "2025-06-26"
@@ -37,17 +37,17 @@ print(three_days_ago_midnight)
 start_dt = datetime.strptime(f"{START_DATE} {START_TIME}", "%Y-%m-%d %H:%M")
 end_dt = datetime.strptime(f"{END_DATE} {END_TIME}", "%Y-%m-%d %H:%M")
 
-if end_dt < five_days_ago_midnight:
+if end_dt < three_days_ago_midnight:
     print("コード1のみ実行")
     run_code1(START_DATE, START_TIME, END_DATE, END_TIME)
     
-elif start_dt > five_days_ago_midnight:
+elif start_dt > three_days_ago_midnight:
     print("コード2のみ実行")
     run_code2()
 
 else:
     print("コード1とコード2の両方を実行")
-    one_minute_before_mid = five_days_ago_midnight - timedelta(minutes=1)
+    one_minute_before_mid = three_days_ago_midnight - timedelta(minutes=1)
 
     mid_date = one_minute_before_mid.strftime("%Y-%m-%d")
     mid_time = one_minute_before_mid.strftime("%H:%M")
@@ -101,7 +101,7 @@ def convert_datetime_past(date_str, time_str):
     return datetime.strptime(f"{date_str} {time_str.split('.')[0]}", "%Y/%m/%d %H:%M:%S")
 
 def make_combined_csv():
-    #global five_days_ago_midnight
+    #global three_days_ago_midnight
     files = sorted([f for f in os.listdir("downloads_csv") if f.startswith("earthquake_") and f.endswith(".csv")],
                    key=lambda x: int(re.findall(r'\d+', x)[0]))
     all_data = []
@@ -121,7 +121,7 @@ def make_combined_csv():
             df_clean["マグニチュード"] = pd.to_numeric(df.iloc[:, 3], errors='coerce')
             df_clean["震度"] = df[4]
 
-            df_filtered = df_clean[df_clean["地震の発生日時"] >= five_days_ago_midnight].copy()
+            df_filtered = df_clean[df_clean["地震の発生日時"] >= three_days_ago_midnight].copy()
 
             all_data.append(df_filtered)
         else:
