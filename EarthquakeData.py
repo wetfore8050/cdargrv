@@ -31,7 +31,7 @@ print(f"now: {now}")
 END_DATE = now.strftime("%Y-%m-%d")
 END_TIME = now.strftime("%H:%M")
 
-three_days_ago_midnight = (now - timedelta(days=3)).replace(hour=0, minute=0, second=0, microsecond=0) #replaceで別の時間に置き換え
+three_days_ago_midnight = (now - timedelta(days=2)).replace(hour=0, minute=0, second=0, microsecond=0) #replaceで別の時間に置き換え
 print(three_days_ago_midnight)
 
 start_dt = datetime.strptime(f"{START_DATE} {START_TIME}", "%Y-%m-%d %H:%M")

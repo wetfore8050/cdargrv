@@ -120,6 +120,18 @@
                 </div>
             </div>
 
+            <!-- XY_Dayグラフセクション -->
+            <div class="mb-8">
+                <h2 class="text-3xl font-extrabold text-emerald-800 mb-4 text-center py-2 px-4 bg-emerald-200 rounded-lg shadow-md">時系列XYグラフ</h2>
+                <div class="w-full text-left text-base text-emerald-800 bg-emerald-50 p-3 rounded-lg shadow-inner border border-emerald-200 leading-relaxed mb-4">
+                    このXYグラフでは、実際にアニメーションとして地震の発生緯度経度の時系列分布および深さ分布を確認できます。
+                    下のバーを操作することで、任意の日付の地震の発生状況を確認できます。
+                </div>
+                <div class="bg-white rounded-xl shadow-2xl overflow-hidden border border-emerald-200">
+                    <iframe id="xt-graph" src="plot/xy_day_graph.html" title="時系列XYグラフ" class="w-full h-[75vh] md:h-[80vh] lg:h-[85vh] border-none"></iframe>
+                </div>
+            </div>
+
             <!-- XTグラフセクション -->
             <div class="mb-8">
                 <h2 class="text-3xl font-extrabold text-emerald-800 mb-4 text-center py-2 px-4 bg-emerald-200 rounded-lg shadow-md">XTグラフ</h2>
