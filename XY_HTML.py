@@ -33,6 +33,7 @@ for idx, file in enumerate(sorted(file_list)):
     df['depth_km'] = pd.to_numeric(df['深さ'].str.replace(' km', '').replace('ごく浅い', '0'), errors='coerce')
     df['mag'] = pd.to_numeric(df['Ｍ'], errors='coerce')
     df = df.dropna(subset=["mag", "lat", "lon", "depth_km"])
+    df = df[df["mag"] >= 3.0]
     df['file_id'] = file
     df['color'] = color_list[idx % len(color_list)]
     data_all.append(df)
@@ -63,7 +64,9 @@ for df in data_all:
                 color=df["color"].iloc[0],
                 line=dict(width=1, color='black')
             ),
-            name=df["file_id"].iloc[0]
+            name=df["file_id"].iloc[0],
+            legendgroup=df["file_id"].iloc[0],
+            showlegend=True
         ),
         row=1, col=1
     )
@@ -76,6 +79,7 @@ for df in data_all:
             mode='markers',
             marker=dict(size=df["mag"] ** 2, color=df["color"].iloc[0], line=dict(width=1, color='black')),
             name=df["file_id"].iloc[0],
+            legendgroup=df["file_id"].iloc[0],
             showlegend=False
         ),
         row=1, col=2
@@ -90,6 +94,7 @@ for df in data_all:
             mode='markers',
             marker=dict(size=df["mag"] ** 2, color=df["color"].iloc[0], line=dict(width=1, color='black')),
             name=df["file_id"].iloc[0],
+            legendgroup=df["file_id"].iloc[0],
             showlegend=False
         ),
         row=2, col=1
